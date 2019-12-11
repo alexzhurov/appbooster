@@ -6,8 +6,8 @@ import { CurrenciesResponse } from '../store/currencies/types';
 import axios from 'axios';
 import { API_CURR, API_CURR_KEY } from '../constants/constants';
 
-export const thunkGetCurrancies = (): ThunkAction<void, AppState, null, Action<string>> => async dispatch => {
-  const result = await apiCurrancies();
+export const thunkGetCurrencies = (): ThunkAction<void, AppState, null, Action<string>> => async dispatch => {
+  const result = await apiCurrencies();
   dispatch(
     getCurrencies({
       ...result,
@@ -16,7 +16,7 @@ export const thunkGetCurrancies = (): ThunkAction<void, AppState, null, Action<s
   );
 };
 
-async function apiCurrancies(): Promise<CurrenciesResponse> {
+async function apiCurrencies(): Promise<CurrenciesResponse> {
   try {
     const { data } = await axios.get(
       `${API_CURR}/latest.json`, {

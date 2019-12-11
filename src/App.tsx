@@ -1,13 +1,13 @@
 import * as React from 'react';
 import { connect } from "react-redux";
 import { AppState } from "./store";
-import { thunkGetCurrancies } from './api/thunkCurrancies';
+import { thunkGetCurrencies } from './api/thunkCurrencies';
 import { thunkGetIpInfo } from './api/thunkIpInfo';
-import './App.css';
+import './styles/App.css';
 import logo from './logo.svg';
 
 interface AppProps {
-  thunkGetCurrancies: any
+  thunkGetCurrencies: any
   thunkGetIpInfo: any
 }
 
@@ -23,7 +23,7 @@ class App extends React.Component<AppProps> {
   };
 
   getCurrencies(): void {
-    this.props.thunkGetCurrancies();
+    this.props.thunkGetCurrencies();
   }
 
   render() {
@@ -48,7 +48,7 @@ const mapStateToProps = (state: AppState) => ({
 export default connect(
   mapStateToProps,
   {
-    thunkGetCurrancies,
+    thunkGetCurrencies,
     thunkGetIpInfo
   }
 )(App);

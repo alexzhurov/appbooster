@@ -1,14 +1,14 @@
 export interface ipInfoState {
-  city: string     // "Saint Petersburg"
-  country: string  // "RU"
-  hostname: string // "host-103-158-66-217.spbmts.ru"
-  ip: string       // "217.66.158.103"
-  loc: string      // "59.9386,30.3141"
-  org: string      // "AS8359 MTS PJSC"
-  postal: string   // "190000"
-  readme: string   // "https://ipinfo.io/missingauth"
-  region: string   // "St.-Petersburg"
-  timezone: string // "Europe/Moscow"
+  city: string | null
+  country: string | null
+  hostname: string | null
+  ip: string | null
+  loc: string | null
+  org: string | null
+  postal: string | null
+  readme: string | null
+  region: string | null
+  timezone: string | null
 }
 
 export const GET_IP_INFO = 'GET_IP_INFO';

@@ -1,16 +1,16 @@
 import { GET_IP_INFO, ipInfoActionTypes, ipInfoState } from './types';
 
 const initialState: ipInfoState = {
-  city: "string",
-  country: "GB",
-  hostname: "string",
-  ip: "string",
-  loc: "string",
-  org: "string",
-  postal: "string",
-  readme: "string",
-  region: "string",
-  timezone: "string"
+  city: null,
+  country: null,
+  hostname: null,
+  ip: null,
+  loc: null,
+  org: null,
+  postal: null,
+  readme: null,
+  region: null,
+  timezone: null
 };
 
 export function ipInfoReducer(
@@ -19,10 +19,10 @@ export function ipInfoReducer(
 ): ipInfoState {
   switch (action.type) {
     case GET_IP_INFO:
-    return {
-      ...state,
-      ...action.payload
-    };
+      return {
+        ...state,
+        ...action.payload
+      };
     default:
       return state;
   }
