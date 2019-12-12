@@ -1,16 +1,16 @@
 import { GET_IP_INFO, ipInfoActionTypes, ipInfoState } from './types';
 
 const initialState: ipInfoState = {
-  city: null,
-  country: null,
-  hostname: null,
-  ip: null,
-  loc: null,
-  org: null,
-  postal: null,
-  readme: null,
-  region: null,
-  timezone: null
+  city:  "Saint Petersburg",
+  country:  "RU",
+  hostname:  "host-250-159-66-217.spbmts.ru",
+  ip:  "217.66.159.250",
+  loc:  "59.9386,30.3141",
+  org:  "AS8359 MTS PJSC",
+  postal:  "190000",
+  readme:  'readme',
+  region:  "St.-Petersburg",
+  timezone:  "St.-Petersburg",
 };
 
 export function ipInfoReducer(

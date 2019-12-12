@@ -4,9 +4,10 @@ import { AppState }               from './store';
 import { thunkGetCurrencies }     from './api/thunkCurrencies';
 import { thunkGetIpInfo }         from './api/thunkIpInfo';
 import { thunkConvert }           from './api/thunkConvert';
+
 import { getCountryCurrencyInfo } from './store/countryCurrency/actions';
-import { ipInfoState }            from './store/ipinfo/types';
 import { countryCurrencyState }   from './store/countryCurrency/types';
+import { ipInfoState }            from './store/ipinfo/types';
 import { IConvertState }          from './store/convert/types';
 import { CurrenciesState }        from './store/currencies/types';
 
@@ -19,11 +20,11 @@ interface AppProps {
   country: countryCurrencyState
   convert: IConvertState
 
-  thunkGetCurrencies: typeof thunkGetCurrencies
-  thunkGetIpInfo: typeof thunkGetIpInfo
-  thunkConvert: typeof thunkConvert
+  thunkGetCurrencies: any
+  thunkGetIpInfo: any
+  thunkConvert: any
 
-  getCountryCurrencyInfo: typeof getCountryCurrencyInfo
+  getCountryCurrencyInfo: any
 }
 
 class App extends React.Component<AppProps> {

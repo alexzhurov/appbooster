@@ -14,8 +14,6 @@ import {
 
 export const thunkConvert = (data: IConvertRequest): ThunkAction<void, AppState, null, Action<string>> => async dispatch => {
   const result = await apiConvert(data);
-  console.log('thunkConver.ts =>  => result: ', result);
-  debugger;
   dispatch(convertCurrency(result));
 };
 

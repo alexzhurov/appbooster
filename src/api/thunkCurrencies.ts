@@ -12,8 +12,6 @@ import {
 export const thunkGetCurrencies = (base: string): ThunkAction<void, AppState, null, Action<string>> => async dispatch => {
   // TODO (au.zhurov): Change plan if needed
   const result = await apiCurrencies('USD');
-  debugger;
-  debugger;
   dispatch(
     getCurrencies({
       ...result,
@@ -25,11 +23,11 @@ export const thunkGetCurrencies = (base: string): ThunkAction<void, AppState, nu
 async function apiCurrencies(base: string): Promise<CurrenciesResponse> {
   try {
     // minimize quantity of free responses.
-    if (true) {
+    if (process.env.REACT_APP_IS_MOKABLE) {
       return new Promise(resolve => resolve({
+        base,
         disclaimer: 'Usage subject to terms: https://openexchangerates.org/terms',
         license: 'https://openexchangerates.org/license',
-        base: 'USD',
         timestamp: 1576130400,
         rates: { AED: 3.6731, AFN: 78.549996, ALL: 109.997737, AMD: 477.87305, ANG: 1.715392, AOA: 472.2805 }
       }));
