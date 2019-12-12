@@ -1,29 +1,49 @@
-import * as React from 'react';
-import { connect } from "react-redux";
-import { AppState } from "./store";
-import { thunkGetCurrencies } from './api/thunkCurrencies';
-import { thunkGetIpInfo } from './api/thunkIpInfo';
+import * as React                 from 'react';
+import { connect }                from 'react-redux';
+import { AppState }               from './store';
+import { thunkGetCurrencies }     from './api/thunkCurrencies';
+import { thunkGetIpInfo }         from './api/thunkIpInfo';
+import { thunkConvert }           from './api/thunkConvert';
+import { getCountryCurrencyInfo } from './store/countryCurrency/actions';
+import { ipInfoState }            from './store/ipinfo/types';
+import { countryCurrencyState }   from './store/countryCurrency/types';
+import { IConvertState }          from './store/convert/types';
+import { CurrenciesState }        from './store/currencies/types';
+
 import './styles/App.css';
-import logo from './logo.svg';
+import logo                       from './logo.svg';
 
 interface AppProps {
-  thunkGetCurrencies: any
-  thunkGetIpInfo: any
+  currencies: CurrenciesState
+  ipInfo: ipInfoState
+  country: countryCurrencyState
+  convert: IConvertState
+
+  thunkGetCurrencies: typeof thunkGetCurrencies
+  thunkGetIpInfo: typeof thunkGetIpInfo
+  thunkConvert: typeof thunkConvert
+
+  getCountryCurrencyInfo: typeof getCountryCurrencyInfo
 }
 
 class App extends React.Component<AppProps> {
 
   constructor(options: AppProps) {
     super(options);
+
     this.getCurrencies = this.getCurrencies.bind(this);
   }
 
-  componentDidMount(): void {
-    this.props.thunkGetIpInfo();
+  async componentDidMount(): Promise<void> {
+    await this.props.thunkGetIpInfo();
+    await this.props.getCountryCurrencyInfo(this.props.ipInfo.country || 'US');
+
+    debugger;
+    this.props.thunkGetCurrencies(this.props.country.currency.currencyCode);
   };
 
   getCurrencies(): void {
-    this.props.thunkGetCurrencies();
+    debugger;
   }
 
   render() {
@@ -42,13 +62,17 @@ class App extends React.Component<AppProps> {
 
 const mapStateToProps = (state: AppState) => ({
   currencies: state.currencies,
-  ipInfo: state.ipInfo
+  ipInfo: state.ipInfo,
+  country: state.country,
+  convert: state.convert
 });
 
 export default connect(
   mapStateToProps,
   {
     thunkGetCurrencies,
-    thunkGetIpInfo
+    thunkGetIpInfo,
+    thunkConvert,
+    getCountryCurrencyInfo
   }
 )(App);

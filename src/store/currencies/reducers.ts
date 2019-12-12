@@ -2,6 +2,7 @@ import {
   CurrenciesState,
   CurrenciesActionTypes,
   GET_CURRENCIES,
+  SET_CURRENCIES
 } from './types';
 
 const initialState: CurrenciesState = {
@@ -20,6 +21,8 @@ export function currenciesReducer(
         ...state,
         ...action.payload
       };
+    case SET_CURRENCIES:
+      return state;
     default:
       return state;
   }

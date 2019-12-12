@@ -1,13 +1,19 @@
-import { Action } from "redux";
-import { ThunkAction } from "redux-thunk";
-import { getCurrencies } from "../store/currencies/actions";
-import { AppState } from "../store";
+import { Action }             from 'redux';
+import { ThunkAction }        from 'redux-thunk';
+import { getCurrencies }      from '../store/currencies/actions';
+import { AppState }           from '../store';
 import { CurrenciesResponse } from '../store/currencies/types';
-import axios from 'axios';
-import { API_CURR, API_CURR_KEY } from '../constants/constants';
+import axios                  from 'axios';
+import {
+  API_CURR,
+  API_CURR_KEY
+}                             from '../constants';
 
-export const thunkGetCurrencies = (): ThunkAction<void, AppState, null, Action<string>> => async dispatch => {
-  const result = await apiCurrencies();
+export const thunkGetCurrencies = (base: string): ThunkAction<void, AppState, null, Action<string>> => async dispatch => {
+  // TODO (au.zhurov): Change plan if needed
+  const result = await apiCurrencies('USD');
+  debugger;
+  debugger;
   dispatch(
     getCurrencies({
       ...result,
@@ -16,16 +22,28 @@ export const thunkGetCurrencies = (): ThunkAction<void, AppState, null, Action<s
   );
 };
 
-async function apiCurrencies(): Promise<CurrenciesResponse> {
+async function apiCurrencies(base: string): Promise<CurrenciesResponse> {
   try {
-    const { data } = await axios.get(
-      `${API_CURR}/latest.json`, {
-        params: {
-          app_id: API_CURR_KEY
-        }
-      });
-    return data;
+    // minimize quantity of free responses.
+    if (true) {
+      return new Promise(resolve => resolve({
+        disclaimer: 'Usage subject to terms: https://openexchangerates.org/terms',
+        license: 'https://openexchangerates.org/license',
+        base: 'USD',
+        timestamp: 1576130400,
+        rates: { AED: 3.6731, AFN: 78.549996, ALL: 109.997737, AMD: 477.87305, ANG: 1.715392, AOA: 472.2805 }
+      }));
+    } else {
+      const { data } = await axios.get(
+        `${API_CURR}/latest.json`, {
+          params: {
+            app_id: API_CURR_KEY,
+            base
+          }
+        });
+      return data;
+    }
   } catch (error) {
-    throw error;
+    throw new Error(error.response.data.description);
   }
 }

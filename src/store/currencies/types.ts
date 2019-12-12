@@ -4,18 +4,24 @@ export interface CurrenciesResponse extends CurrenciesState {
 }
 
 export interface CurrenciesState {
-  timestamp: number
   base: string
+  timestamp: number
   rates: {
     [key: string]: number
   }
 }
 
 export const GET_CURRENCIES = 'GET_CURRENCIES';
+export const SET_CURRENCIES = 'SET_CURRENCIES';
 
 interface GetCurrenciesAction {
   type: typeof GET_CURRENCIES
   payload: CurrenciesState
 }
 
-export type CurrenciesActionTypes = GetCurrenciesAction;
+interface SetCurrenciesAction {
+  type: typeof SET_CURRENCIES
+  payload: CurrenciesState
+}
+
+export type CurrenciesActionTypes = GetCurrenciesAction | SetCurrenciesAction;
