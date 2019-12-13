@@ -1,79 +1,78 @@
-import * as React                 from 'react';
-import { connect }                from 'react-redux';
-import { AppState }               from './store';
-import { thunkGetCurrencies }     from './api/thunkCurrencies';
-import { thunkGetIpInfo }         from './api/thunkIpInfo';
-import { thunkConvert }           from './api/thunkConvert';
-
-import { getCountryCurrencyInfo } from './store/countryCurrency/actions';
-import { countryCurrencyState }   from './store/countryCurrency/types';
-import { ipInfoState }            from './store/ipinfo/types';
-import { IConvertState }          from './store/convert/types';
-import { CurrenciesState }        from './store/currencies/types';
-
+import React       from 'react';
+import { connect } from 'react-redux';
+import {
+  IAppProps,
+  mapDispatchToProps,
+  mapStateToProps
+}                  from './store';
 import './styles/App.css';
-import logo                       from './logo.svg';
+import Converter   from './components/Converter';
+import Currencies  from './components/Currencies';
+import { Header }  from './components/Header';
 
-interface AppProps {
-  currencies: CurrenciesState
-  ipInfo: ipInfoState
-  country: countryCurrencyState
-  convert: IConvertState
+const TAB_CONVERTER = 'Converter';
+const TAB_CURRENCIES = 'Currencies';
 
-  thunkGetCurrencies: any
-  thunkGetIpInfo: any
-  thunkConvert: any
+class App extends React.Component<IAppProps> {
 
-  getCountryCurrencyInfo: any
-}
+  state = {
+    tabs: [
+      { id: TAB_CONVERTER, title: 'Converter', isActive: false },
+      { id: TAB_CURRENCIES, title: 'Currencies', isActive: false }
+    ]
+  };
 
-class App extends React.Component<AppProps> {
-
-  constructor(options: AppProps) {
-    super(options);
-
-    this.getCurrencies = this.getCurrencies.bind(this);
+  async initData(): Promise<void> {
+    await this.props.thunkGetIpInfo();
+    await this.props.thunkGetCurrencies();
+    // this.props.thunkGetRates(this.props.ipInfo.currency);
   }
 
   async componentDidMount(): Promise<void> {
-    await this.props.thunkGetIpInfo();
-    await this.props.getCountryCurrencyInfo(this.props.ipInfo.country || 'US');
-
-    debugger;
-    this.props.thunkGetCurrencies(this.props.country.currency.currencyCode);
+    await this.initData();
+    this.setActiveTab(TAB_CONVERTER);
+    // this.setActiveTab(TAB_CURRENCIES);
   };
 
-  getCurrencies(): void {
-    debugger;
+  /**
+   * Tab click handler
+   * @param {string} tabName
+   */
+  protected setActiveTab(tabName: string): void {
+    const tabs = this.state.tabs.map(tab => ({
+      ...tab,
+      isActive: tab.id === tabName
+    }));
+    this.setState({ tabs });
   }
 
+
   render() {
+    const { tabs } = this.state;
+    const { currencies } = this.props;
+    const activeTab = tabs.find(({ isActive }) => isActive) || tabs[0];
     return (
       <div className="App">
-        <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo"/>
-          <button onClick={this.getCurrencies}>
-            getCurrencies
-          </button>
-        </header>
+        <Header tabs={tabs} currencies={currencies} setActiveTab={this.setActiveTab.bind(this)}/>
+
+        <main className="App__main">
+          {(() => {
+            switch (activeTab.id) {
+              case TAB_CONVERTER:
+                return <Converter/>;
+              case TAB_CURRENCIES:
+                return <Currencies/>;
+              default:
+                return <div>404 page</div>;
+            }
+          })()}
+        </main>
       </div>
     );
   }
 }
 
-const mapStateToProps = (state: AppState) => ({
-  currencies: state.currencies,
-  ipInfo: state.ipInfo,
-  country: state.country,
-  convert: state.convert
-});
-
 export default connect(
   mapStateToProps,
-  {
-    thunkGetCurrencies,
-    thunkGetIpInfo,
-    thunkConvert,
-    getCountryCurrencyInfo
-  }
+  mapDispatchToProps
 )(App);
