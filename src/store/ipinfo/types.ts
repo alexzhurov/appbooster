@@ -1,21 +1,23 @@
-export interface ipInfoState {
-  city: string | null // "Saint Petersburg"
-  country: string | null // "RU"
-  hostname: string | null // "host-250-159-66-217.spbmts.ru"
-  ip: string | null // "217.66.159.250"
-  loc: string | null // "59.9386,30.3141"
-  org: string | null // "AS8359 MTS PJSC"
-  postal: string | null // "190000"
-  readme: string | null  // ??????
-  region: string | null // "St.-Petersburg"
-  timezone: string | null// "St.-Petersburg"
+export interface IipInfoState {
+  status: string;  //  "success",
+  country: string;  //  "Russia",
+  countryCode: string;  //  "RU",
+  city: string;  //  "St Petersburg",
+  lat: number;  //  59.8981,
+  lon: number;  //  30.2619,
+  timezone: string;  //  "Europe/Moscow",
+  currency: string;  //  "RUB",
+  org: string;  //  "Mobile TeleSystems",
+  as: string;  //  "AS8359 MTS PJSC",
+  mobile: boolean;  //  true,
+  query: string;  //  "217.66.158.208"
 }
 
 export const GET_IP_INFO = 'GET_IP_INFO';
 
 interface GetIpInfoAction {
   type: typeof GET_IP_INFO
-  payload: ipInfoState
+  payload: IipInfoState
 }
 
 export type ipInfoActionTypes = GetIpInfoAction;

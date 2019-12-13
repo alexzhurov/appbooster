@@ -1,40 +1,38 @@
-import { Action }      from 'redux';
-import { ThunkAction } from 'redux-thunk';
-import { getIpInfo }   from '../store/ipinfo/actions';
-import { AppState }    from '../store';
-import { ipInfoState } from '../store/ipinfo/types';
-import axios           from 'axios';
-import {
-  API_INFO,
-  API_INFO_KEY
-}                      from '../constants';
+import { Action }       from 'redux';
+import { ThunkAction }  from 'redux-thunk';
+import { getIpInfo }    from '../store/ipinfo/actions';
+import { AppState }     from '../store';
+import { IipInfoState } from '../store/ipinfo/types';
+import axios            from 'axios';
+import { API_INFO }     from '../constants';
 
 export const thunkGetIpInfo = (): ThunkAction<void, AppState, null, Action<string>> => async dispatch => {
   const result = await apiIpInfo();
   dispatch(getIpInfo(result));
 };
 
-async function apiIpInfo(): Promise<ipInfoState> {
+async function apiIpInfo(): Promise<IipInfoState> {
   try {
-    // minimize quantity of free responses.
-    if (process.env.REACT_APP_IS_MOKABLE) {
+    // Minimize quantity of free responses.
+    if (!process.env.REACT_APP_IS_MOKABLE) {
       return new Promise(resolve => resolve({
-        city: 'Saint Petersburg',
-        country: 'RU',
-        hostname: 'host-250-159-66-217.spbmts.ru',
-        ip: '217.66.159.250',
-        loc: '59.9386,30.3141',
-        org: 'AS8359 MTS PJSC',
-        postal: '190000',
-        readme: 'wtf',
-        region: 'St.-Petersburg',
-        timezone: 'St.-Petersburg'
+        status: "success",
+        country: "Russia",
+        countryCode: "RU",
+        city: "St Petersburg",
+        lat: 59.8981,
+        lon: 30.2619,
+        timezone: "Europe/Moscow",
+        currency: "RUB",
+        org: "Mobile TeleSystems",
+        as: "AS8359 MTS PJSC",
+        mobile: true,
+        query: "217.66.158.208"
       }));
-
     } else {
       const { data } = await axios.get(API_INFO, {
         params: {
-          token: API_INFO_KEY
+          params: 'status,message,country,countryCode,city,lat,lon,timezone,currency,org,as,mobile,query\n'
         }
       });
       return data;

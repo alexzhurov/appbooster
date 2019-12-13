@@ -1,6 +1,10 @@
-import { GET_CURRENCIES, CurrenciesActionTypes, CurrenciesResponse } from './types';
+import {
+  GET_CURRENCIES,
+  CurrenciesActionTypes,
+  ICurrenciesState
+} from './types';
 
-export function getCurrencies(response: CurrenciesResponse): CurrenciesActionTypes {
+export function getCurrencies(response: ICurrenciesState): CurrenciesActionTypes {
   return {
     type: GET_CURRENCIES,
     payload: response

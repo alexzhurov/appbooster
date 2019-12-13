@@ -1,28 +1,21 @@
 import {
-  CurrenciesState,
+  ICurrenciesState,
   CurrenciesActionTypes,
-  GET_CURRENCIES,
-  SET_CURRENCIES
+  GET_CURRENCIES
 } from './types';
 
-const initialState: CurrenciesState = {
-  base: 'USD',
-  timestamp: Number(new Date()),
-  rates: {}
-};
+const initialState: ICurrenciesState = {};
 
 export function currenciesReducer(
   state = initialState,
   action: CurrenciesActionTypes
-): CurrenciesState {
+): ICurrenciesState {
   switch (action.type) {
     case GET_CURRENCIES:
       return {
         ...state,
         ...action.payload
       };
-    case SET_CURRENCIES:
-      return state;
     default:
       return state;
   }
