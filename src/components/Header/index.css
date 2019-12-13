@@ -1,0 +1,37 @@
+.App__header {
+  display         : flex;
+  justify-content : space-between;
+  height          : 80px;
+  max-height      : 80px;
+  border-radius   : 4px 4px 0 0;
+  overflow        : hidden;
+}
+.nav {
+  display : flex;
+}
+.nav-link {
+  align-items      : center;
+  display          : flex;
+  justify-content  : center;
+  padding          : 15px 10px;
+  cursor           : pointer;
+  background-color : var(--color-accent);
+}
+.nav-link:hover,
+.nav-link.active {
+  background-color : var(--color-gray);
+  transition       : background-color .15s;
+}
+.user {
+  display          : flex;
+  align-items      : center;
+  background-color : var(--color-pink);
+  padding          : 15px 10px;
+}
+.user__avatar {
+  padding-right : 10px;
+}
+.user-logo {
+  height         : 100%;
+  pointer-events : none;
+}
