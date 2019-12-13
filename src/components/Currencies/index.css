@@ -1,0 +1,118 @@
+/*///////////////////////////////
+// sum component
+//////////////////////////////*/
+.sum {
+  height          : 40px;
+  display         : flex;
+  align-items     : center;
+  justify-content : center;
+  margin-bottom   : 25px;
+  flex-shrink     : 0;
+}
+.sum__caption,
+.sum > input {
+  height     : 100%;
+  box-sizing : border-box;
+}
+.sum__caption {
+  display          : flex;
+  align-items      : center;
+  font-size        : 12px;
+  padding          : 10px;
+  background-color : var(--color-pink);
+}
+.sum > input[type=number] {
+  -webkit-appearance : textfield;
+  -moz-appearance    : textfield;
+  appearance         : textfield;
+}
+.sum > input[type=number]::-webkit-inner-spin-button,
+.sum > input[type=number]::-webkit-outer-spin-button {
+  -webkit-appearance : none;
+}
+.sum > input[type=number] {
+  background-color : var(--color-blue);
+  border           : none;
+  text-align       : right;
+  padding-right    : 5px;
+  width            : 90px;
+}
+
+.sum__controls {
+  display        : flex;
+  flex-direction : column;
+  max-height     : 100%;
+  overflow       : hidden;
+  height         : 100%;
+}
+.sum__controls > .plus,
+.sum__controls > .minus {
+  width            : 25px;
+  background-color : rgba(255, 255, 255, .3);
+  max-height       : 50%;
+  height           : 50%;
+  flex-grow        : 1;
+  display          : flex;
+  justify-content  : center;
+  align-items      : center;
+  cursor           : pointer;
+}
+.sum__controls > .plus:hover,
+.sum__controls > .minus:hover {
+  background-color : rgba(255, 255, 255, .15);
+}
+/*///////////////////////////////
+// Currencies
+//////////////////////////////*/
+.currencies {
+  display         : flex;
+  flex-wrap       : wrap;
+  justify-content : space-between;
+  overflow-y      : auto;
+  flex-shrink     : 1;
+}
+.currencies-empty {
+  margin : 30px auto;
+  font-size : 35px;
+}
+.currency {
+  height           : 60px;
+  background-color : rgba(138, 117, 117, .4);
+  max-width        : 32%;
+  width            : 32%;
+  margin-bottom    : 10px;
+  display          : flex;
+  align-items      : center;
+}
+.currency:hover .currency__fav,
+.currency__fav.active {
+  display : block;
+}
+.currency__caption {
+  min-width        : 80px;
+  justify-content  : center;
+  background-color : #b4701c73;
+}
+.currency__value {
+  justify-content : flex-end;
+  flex-grow       : 1;
+  padding-right   : 10px;
+  position        : relative;
+}
+.currency__caption,
+.currency__value {
+  height      : 100%;
+  display     : flex;
+  align-items : center;
+
+}
+.currency__fav {
+  display   : none;
+  font-size : 36px;
+  color     : #ff5d7f;
+  position  : absolute;
+  left      : 10px;
+  top       : 50%;
+  transform : translate(0, -50%);
+  cursor    : pointer;
+}
