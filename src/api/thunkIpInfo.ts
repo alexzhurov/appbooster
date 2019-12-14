@@ -14,7 +14,7 @@ export const thunkGetIpInfo = (): ThunkAction<void, AppState, null, Action<strin
 async function apiIpInfo(): Promise<IipInfoState> {
   try {
     // Minimize quantity of free responses.
-    if (!process.env.REACT_APP_IS_MOKABLE) {
+    if (process.env.REACT_APP_IS_MOKABLE) {
       return new Promise(resolve => resolve({
         status: "success",
         country: "Russia",

@@ -1,10 +1,9 @@
-import {
-  ICurrenciesState,
-  CurrenciesActionTypes,
-  GET_CURRENCIES
-} from './types';
+import { CurrenciesActionTypes, GET_CURRENCIES, ICurrenciesState, SET_FAV_CURRENCY } from './types';
 
-const initialState: ICurrenciesState = {};
+const initialState: ICurrenciesState = {
+  list: {},
+  favs: []
+};
 
 export function currenciesReducer(
   state = initialState,
@@ -14,8 +13,20 @@ export function currenciesReducer(
     case GET_CURRENCIES:
       return {
         ...state,
-        ...action.payload
+        list: { ...action.payload }
       };
+    case SET_FAV_CURRENCY:
+      if (state.favs.includes(action.payload)) {
+        return {
+          ...state,
+          ...{ favs: state.favs.filter((cur) => cur !== action.payload) }
+        };
+      } else {
+        return {
+          ...state,
+          ...{ favs: [...state.favs, action.payload] }
+        };
+      }
     default:
       return state;
   }

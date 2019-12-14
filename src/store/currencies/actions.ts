@@ -1,12 +1,15 @@
-import {
-  GET_CURRENCIES,
-  CurrenciesActionTypes,
-  ICurrenciesState
-} from './types';
+import { CurrenciesActionTypes, GET_CURRENCIES, ICurrenciesList, SET_FAV_CURRENCY } from './types';
 
-export function getCurrencies(response: ICurrenciesState): CurrenciesActionTypes {
+export function getCurrencies(list: ICurrenciesList): CurrenciesActionTypes {
   return {
     type: GET_CURRENCIES,
-    payload: response
+    payload: list
+  };
+}
+
+export function setFavCurrency(favs: string): CurrenciesActionTypes {
+  return {
+    type: SET_FAV_CURRENCY,
+    payload: favs
   };
 }

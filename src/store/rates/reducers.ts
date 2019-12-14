@@ -1,8 +1,4 @@
-import {
-  GET_RATES,
-  IRatesState,
-  RatesActionTypes
-} from './types';
+import { GET_RATES, IRatesState, RatesActionTypes } from './types';
 
 const initialState: IRatesState = {
   timestamp: Number(new Date()),

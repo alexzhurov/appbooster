@@ -1,4 +1,4 @@
-import { CONVERT_CURRENCY, IConvertState, convertActionTypes } from './types';
+import { CONVERT_CURRENCY, convertActionTypes, IConvertState } from './types';
 
 export function convertCurrency(response: IConvertState): convertActionTypes {
   return {

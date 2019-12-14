@@ -1,13 +1,10 @@
-import { Action }      from 'redux';
-import { ThunkAction } from 'redux-thunk';
-import { getRates }    from '../store/rates/actions';
-import { AppState }    from '../store';
-import { IRatesState } from '../store/rates/types';
-import axios           from 'axios';
-import {
-  API_CURR_KEY,
-  API_INFO
-}                      from '../constants';
+import { Action }                 from 'redux';
+import { ThunkAction }            from 'redux-thunk';
+import { getRates }               from '../store/rates/actions';
+import { AppState }               from '../store';
+import { IRatesState }            from '../store/rates/types';
+import axios                      from 'axios';
+import { API_CURR_KEY, API_INFO } from '../constants';
 
 export const thunkGetRates = (base: string): ThunkAction<void, AppState, null, Action<string>> => async dispatch => {
   const result = await apiRates(base);
@@ -19,7 +16,7 @@ async function apiRates(base: string): Promise<IRatesState> {
     // Minimize quantity of free responses.
     if (process.env.REACT_APP_IS_MOKABLE) {
       const isLong = true;
-      return new Promise(resolve => resolve({
+      return {
         timestamp: 1576242000,
         base: "USD",
         rates: {
@@ -206,7 +203,7 @@ async function apiRates(base: string): Promise<IRatesState> {
             AUD: 1.390866
           })
         }
-      }));
+      };
     } else {
       const { data } = await axios.get(API_INFO, {
         params: { app_id: API_CURR_KEY, base }
