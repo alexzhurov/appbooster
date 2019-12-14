@@ -4,8 +4,8 @@ const initialState: IConvertState = {
   request: {
     amount: 19999.95,
     query: "/convert/19999.95/GBP/EUR",
-    from: "USD",
-    to: "GBR"
+    from: "GBP",
+    to: "EUR"
   },
   meta: {
     timestamp: 1449885661 * 1000,

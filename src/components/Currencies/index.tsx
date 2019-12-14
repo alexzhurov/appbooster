@@ -9,8 +9,7 @@ import { Currency }                                       from '../Currency';
 class Currencies extends Component<IAppProps> {
 
   state = {
-    // TODO (au.zhurov): fix this value
-    sum: 50
+    sum: 1
   };
 
   setFav(cur: string): void {
@@ -43,6 +42,7 @@ class Currencies extends Component<IAppProps> {
                 size='huge'
                 placeholder='0'
                 value={this.state.sum}
+                type='number'
                 onChange={(event, data) => this.setValue(Number(data.value))}
                 label={() => (
                   <div style={{ width: '140px' }}>
@@ -61,7 +61,7 @@ class Currencies extends Component<IAppProps> {
             </Grid.Column>
           </Grid.Row>
         </Grid>
-        <Grid columns='16'>
+        <Grid columns={16} centered>
           <Grid.Row>
             {ratesKeys.length ? ratesKeys.map((cur, i) => (
               <Currency

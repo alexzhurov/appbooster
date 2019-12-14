@@ -14,7 +14,12 @@ const Currency: React.FC<ICurrencyProps> =
     const value = Number((sum * rate).toFixed(2));
     const formatted = new Intl.NumberFormat('de-DE').format(value);
     return (
-      <Grid.Column computer='4'>
+      <Grid.Column
+        computer={4}
+        tablet={5}
+        mobile={8}
+        width={16}
+      >
         <Popup content={title} trigger={
 
           <div
