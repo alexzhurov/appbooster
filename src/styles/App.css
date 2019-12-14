@@ -3,19 +3,6 @@
   max-width      : 1024px;
   display        : flex;
   flex-direction : column;
-
-  position       : absolute;
-  top            : 50%;
-  left           : 50%;
-  transform      : translate(-50%, -50%);
-
+  margin         : 20px auto;
 }
 
-.App__main {
-  background-color : var(--color-gray);
-  padding          : 25px 50px;
-  min-height       : 60vh;
-  max-height       : 60vh;
-  display          : flex;
-  flex-direction   : column;
-}
