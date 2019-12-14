@@ -1,8 +1,5 @@
-import {
-  createStore,
-  combineReducers,
-  applyMiddleware
-}                              from 'redux';
+import { applyMiddleware, combineReducers, createStore } from 'redux';
+
 import thunkMiddleware         from 'redux-thunk';
 import { composeWithDevTools } from 'redux-devtools-extension';
 import { ratesReducer }        from './rates/reducers';
@@ -15,10 +12,14 @@ import { IConvertState }    from './convert/types';
 import { ICurrenciesState } from './currencies/types';
 import { IipInfoState }     from './ipinfo/types';
 
+import { setBaseCurrency } from './ipinfo/actions';
+import { setFavCurrency }  from './currencies/actions';
+
 import { thunkGetRates }      from '../api/thunkRates';
 import { thunkGetIpInfo }     from '../api/thunkIpInfo';
 import { thunkConvert }       from '../api/thunkConvert';
 import { thunkGetCurrencies } from '../api/thunkCurrencies';
+import { loadState }          from './localStorage';
 
 const rootReducer = combineReducers({
   currencies: currenciesReducer,
@@ -26,6 +27,7 @@ const rootReducer = combineReducers({
   convert: convertReducer,
   rates: ratesReducer
 });
+const persistedState = loadState();
 
 export type AppState = ReturnType<typeof rootReducer>;
 
@@ -35,6 +37,7 @@ export function configureStore() {
 
   return createStore(
     rootReducer,
+    persistedState,
     composeWithDevTools(middleWareEnhancer)
   );
 }
@@ -44,6 +47,9 @@ export interface IAppProps {
   ipInfo: IipInfoState
   convert: IConvertState
   rates: IRatesState
+
+  setBaseCurrency: typeof setBaseCurrency
+  setFavCurrency: typeof setFavCurrency
 
   thunkGetRates: any
   thunkGetIpInfo: any
@@ -61,5 +67,7 @@ export const mapDispatchToProps = {
   thunkGetRates,
   thunkGetIpInfo,
   thunkConvert,
-  thunkGetCurrencies
+  thunkGetCurrencies,
+  setBaseCurrency,
+  setFavCurrency
 };
